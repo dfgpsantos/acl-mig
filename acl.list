@@ -1,0 +1,11 @@
+ access-list VLAN999 extended permit icmp any any
+ access-list VLAN999 extended permit udp any any
+ access-list VLAN999 extended permit tcp 192.168.0.0 255.255.255.0 any
+ access-list VLAN999 extended permit ip 172.16.0.0 255.255.254.0 any
+ access-list VLAN998 extended permit tcp host 10.0.0.1 host 10.0.0.2 eq 22
+ access-list VLAN1273_out extended deny tcp any any eq 3389
+ access-list VLAN997 extended deny tcp any any eq ftp-data
+ access-list VLAN123 extended deny tcp any any eq ftp
+ access-list VLAN4 extended deny tcp any any eq telnet
+ access-list VLAN321 extended deny tcp any any eq 22
+ access-list VLAN10 extended permit ip any any
