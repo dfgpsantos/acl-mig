@@ -1,0 +1,33 @@
+{
+    "description": "SECTIONVAR",
+    "tags": [
+      {
+        "scope": "Migration",
+        "tag": "SECTIONVAR"
+      }
+    ],
+    "rules": [
+      {
+        "id": "RULEVAR",
+        "display_name": "RULEVAR",
+        "description": "DESCVAR",
+        "source_groups": [ "SOURCEVAR" ],
+        "destination_groups": [ "DESTINATIONVAR" ],
+        "services": [ "SERVICEVAR" ],
+        "service_entries": [ {
+          "l4_protocol": "PROTOVAR",
+          "resource_type": "L4PortSetServiceEntry"
+          } ],
+        "action": "ACTIONVAR",
+        "profiles": [ "ANY" ],
+        "logged": true,
+        "scope": [ "ANY" ],
+        "disabled": false,
+        "notes": "",
+        "direction": "IN_OUT",
+        "tag": "",
+        "ip_protocol": "IPV4_IPV6"
+      }
+    ]
+
+}
