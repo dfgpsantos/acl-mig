@@ -148,16 +148,14 @@ RULEVAR=`echo $SECTIONVAR\_$RULESEQ`
 
 ICMP="\/infra\/services\/ICMP-ALL"
 
-cp rule-dfw.template rule-dfw.txt
+cp rule-dfw.template rule-dfw-$RULEVAR.txt
 
-#
-#Test if Service is ICMP or Null. Changing DFW JSON template if true.
 #
 
 if [[ "$SERVICEVAR" == "$ICMP" ]] || [[ -z "$PROTOVAR" ]];
 then
 
-sed -i -e '17,20d' rule-dfw.txt
+sed -i -e '17,20d' rule-dfw-$RULEVAR.txt
 
 echo "This DFW Rule is using the $SERVICEVAR"
 
@@ -169,17 +167,36 @@ fi
 
 echo "Configuring $RULEVAR Source: $SOURCEVAR  Destination: $DESTINATIONVAR  Service: $SERVICEVAR  Protocol: $PROTOVAR"
 
-sed -i s/RULEVAR/$RULEVAR/ rule-dfw.txt
-sed -i s/SECTIONVAR/$SECTIONVAR/ rule-dfw.txt
-sed -i s/ACTIONVAR/$ACTIONVAR/ rule-dfw.txt
-sed -i s/SOURCEVAR/$SOURCEVAR/ rule-dfw.txt
-sed -i s/DESTINATIONVAR/$DESTINATIONVAR/ rule-dfw.txt
-sed -i s/SERVICEVAR/$SERVICEVAR/ rule-dfw.txt
-sed -i s/PROTOVAR/$PROTOVAR/ rule-dfw.txt
-sed -i s/DESCVAR/Migration_of_$SECTIONVAR$RULESEQ/ rule-dfw.txt
+sed -i s/RULEVAR/$RULEVAR/ rule-dfw-$RULEVAR.txt
+sed -i s/SECTIONVAR/$SECTIONVAR/ rule-dfw-$RULEVAR.txt
+sed -i s/ACTIONVAR/$ACTIONVAR/ rule-dfw-$RULEVAR.txt
+sed -i s/SOURCEVAR/$SOURCEVAR/ rule-dfw-$RULEVAR.txt
+sed -i s/DESTINATIONVAR/$DESTINATIONVAR/ rule-dfw-$RULEVAR.txt
+sed -i s/SERVICEVAR/$SERVICEVAR/ rule-dfw-$RULEVAR.txt
+sed -i s/PROTOVAR/$PROTOVAR/ rule-dfw-$RULEVAR.txt
+sed -i s/DESCVAR/Migration_of_$SECTIONVAR$RULESEQ/ rule-dfw-$RULEVAR.txt
 
-curl -k --user $USER:$PASSWORD https://$NSX/policy/api/v1/infra/domains/default/security-policies/$SECTIONVAR -X PATCH --data @rule-dfw.txt -H "Content-Type: application/json"
+curl -k --user $USER:$PASSWORD https://$NSX/policy/api/v1/infra/domains/default/security-policies/$SECTIONVAR -X PATCH --data @rule-dfw-$RULEVAR.txt -H "Content-Type: application/json"
 
 sleep 2
 
 done
+
+
+#Clean up
+
+read -p "Do you want to delete the .txt files created for migration? (Y/N)" -n 1 -r CHOICE
+echo    #
+if [[ $CHOICE =~ ^[Yy]$ ]];
+
+then
+
+echo "Deleting .txt files"
+rm -rf *.txt
+
+else
+echo "Saving the .txt files"
+
+fi
+
+echo "Task completed! $RULESEQ rule(s) have been configured in NSX $NSX."
