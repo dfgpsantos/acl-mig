@@ -1,3 +1,5 @@
+#!/bin/bash
+
 USER=usernamehere
 PASSWORD='passwordhere'
 NSX=nsxmanagerheree
