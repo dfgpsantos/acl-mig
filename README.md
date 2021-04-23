@@ -12,7 +12,8 @@
 #others like LDAP, MySQL, Oracle and etc. Heres an example using LDAP sed -i 's/tcp,eq,389/\\\/infra\\\/services\\\/LDAP/g' acltest2.txt
 #The usage of \ is necessary due to regex over sed.
 #So the original path address in nsx /infra/services/LDAP should be written as: \\\/infra\\\/services\\\/LDAP
+#4-) For some OS's like ubuntu it might be necessary to run a chmod 755 acl-mig.sh in order to make it work running with ./acl-mig.sh
 #
-#In the end of file it'll prompted to keep or discard the .txt files used to convert the ACLs and to make the API calls in NSX.
+#In the end of script it'll prompted to keep or discard the .txt files used to convert the ACLs and to make the API calls in NSX.
 #
 #Happy ACL to DFW converting!!! :)
