@@ -1,8 +1,11 @@
 #!/bin/bash
 
 USER=usernamehere
-PASSWORD='passwordhere'
+#PASSWORD='passwordhere'
 NSX=nsxmanagerheree
+
+read -s -p "Password: " PASSWORD
+
 
 #txt files cleanup
 
